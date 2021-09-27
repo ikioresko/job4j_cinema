@@ -169,11 +169,4 @@ public class PsqlStore implements Store {
         }
         return account;
     }
-
-//    public static void main(String[] args) {
-//        Account ac = Account.accountOf(
-//                0, "userName1", "userName1" + "@example.com", 1);
-//        Ticket ticket = Ticket.ticketOf(0, 2, 2, 2, 1);
-//        System.out.println(PsqlStore.instOf().createTicket(ticket));
-//    }
 }
