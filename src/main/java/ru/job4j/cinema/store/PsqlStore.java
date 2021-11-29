@@ -105,11 +105,10 @@ public class PsqlStore implements Store {
     }
 
     @Override
-    public Ticket createTicket(Ticket ticket) {
+    public Ticket createTicket(Ticket ticket) throws SQLException {
         try (Connection cn = pool.getConnection();
              PreparedStatement ps = cn.prepareStatement(
-                     "INSERT INTO ticket(session_id, row, cell, account_id) VALUES(?, ?, ?, ?) "
-                             + "ON CONFLICT DO NOTHING",
+                     "INSERT INTO ticket(session_id, row, cell, account_id) VALUES(?, ?, ?, ?) ",
                      PreparedStatement.RETURN_GENERATED_KEYS)) {
             ps.setInt(1, ticket.getSession());
             ps.setInt(2, ticket.getRow());
@@ -121,8 +120,6 @@ public class PsqlStore implements Store {
                     ticket.setId(genKey.getInt(1));
                 }
             }
-        } catch (Exception e) {
-            LOG.error("Exception: ", e);
         }
         return ticket;
     }
