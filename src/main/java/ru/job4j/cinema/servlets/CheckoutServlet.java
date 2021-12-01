@@ -45,9 +45,9 @@ public class CheckoutServlet extends HttpServlet {
         } catch (SQLException e) {
             LOG.error("Exception: ", e);
             req.setAttribute("error", "Место уже занято, пожалуйста выберите другое");
-            req.getRequestDispatcher("/index.jsp").forward(req, resp);
         }
+        req.setAttribute("error", "Место успешно забронировано");
         serviceStore.reservePlace(placeId);
-        resp.sendRedirect(req.getContextPath() + "/index.jsp");
+        req.getRequestDispatcher("/index.jsp").forward(req, resp);
     }
 }
